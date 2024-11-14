@@ -1,0 +1,32 @@
+pip install opencv-python
+import cv2
+
+# Open a connection to the webcam (0 is usually the default webcam)
+cap = cv2.VideoCapture(0)
+
+if not cap.isOpened():
+    print("Error: Could not open webcam.")
+    exit()
+
+while True:
+    # Capture frame-by-frame
+    ret, frame = cap.read()
+
+    if not ret:
+        print("Error: Failed to capture image.")
+        break
+
+    # Convert the frame to grayscale
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+    # Display the original frame and the grayscale frame
+    cv2.imshow('Webcam - Original', frame)
+    cv2.imshow('Webcam - Grayscale', gray)
+
+    # Press 'q' to exit the loop
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+# Release the webcam and close windows
+cap.release()
+cv2.destroyAllWindows()
